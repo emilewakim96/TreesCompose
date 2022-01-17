@@ -1,7 +1,7 @@
 package com.example.treescompose.data.remote.responses
 
 data class Fields(
-    val adresse: String,
+    var adresse: String,
     val arrondissement: String,
     val circonferenceencm: Int,
     val complementadresse: String,
