@@ -1,7 +1,7 @@
 package com.example.treescompose.data.repository
 
 import com.example.treescompose.data.remote.responses.Trees
-import com.example.treescompose.data.remote.responses.TreesApi
+import com.example.treescompose.data.remote.TreesApi
 import com.example.treescompose.util.Resource
 import javax.inject.Inject
 import javax.inject.Singleton

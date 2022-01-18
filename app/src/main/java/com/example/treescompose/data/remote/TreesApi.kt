@@ -1,5 +1,6 @@
-package com.example.treescompose.data.remote.responses
+package com.example.treescompose.data.remote
 
+import com.example.treescompose.data.remote.responses.Trees
 import retrofit2.http.GET
 
 interface TreesApi {
