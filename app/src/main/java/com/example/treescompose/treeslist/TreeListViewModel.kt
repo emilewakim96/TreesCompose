@@ -17,6 +17,7 @@ class TreeListViewModel @Inject constructor(
 
     var treesList = mutableStateOf<List<Tree>>(listOf())
     var loadError = mutableStateOf("")
+    var isLoading = mutableStateOf(false)
 
     init {
         loadTreeList()
@@ -24,6 +25,7 @@ class TreeListViewModel @Inject constructor(
 
     fun loadTreeList() {
         viewModelScope.launch {
+            isLoading.value = true
             when(val result = repository.getTreesList()) {
                 is Resource.Success -> {
                     val records = result.data?.records
@@ -32,9 +34,11 @@ class TreeListViewModel @Inject constructor(
                     }
                     records?.let { treesList.value = it }
                     loadError.value = ""
+                    isLoading.value = false
                 }
                 else -> {
                     loadError.value = result.message!!
+                    isLoading.value = false
                 }
             }
         }

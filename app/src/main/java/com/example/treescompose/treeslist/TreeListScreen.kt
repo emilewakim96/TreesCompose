@@ -4,12 +4,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -49,10 +47,26 @@ fun TreeList(navController: NavController,
 ) {
     val treesList = remember { viewModel.treesList }.value
     val loadError = remember { viewModel.loadError }.value
+    val isLoading = remember { viewModel.isLoading }.value
+
     LazyColumn {
         items(treesList) { tree ->
             TreeCard(tree, navController = navController)
             Spacer(modifier = Modifier.height(5.dp))
+        }
+    }
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        if(isLoading) {
+            CircularProgressIndicator(color = MaterialTheme.colors.primary)
+        }
+        if(loadError.isNotEmpty()) {
+            RetrySection(error = loadError) {
+                viewModel.loadTreeList()
+            }
         }
     }
 }
@@ -96,5 +110,22 @@ fun TreeCard(tree: Tree, navController: NavController) {
             color = MaterialTheme.colors.secondaryVariant
         )
         Spacer(modifier = Modifier.height(15.dp))
+    }
+}
+
+@Composable
+fun RetrySection(
+    error: String,
+    onRetry: () -> Unit
+) {
+    Column {
+        Text(error, color = Color.Red, fontSize = 18.sp)
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = { onRetry() },
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Text(text = "Retry")
+        }
     }
 }
