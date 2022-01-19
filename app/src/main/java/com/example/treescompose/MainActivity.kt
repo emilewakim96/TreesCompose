@@ -64,7 +64,7 @@ fun NavigationGraph(navController: NavHostController) {
                             textAlign = TextAlign.Center,
                             color = MaterialTheme.colors.onSurface)
                     }
-                    composable("tree_detail_screen/{tree}",
+                    composable("${BottomNavItem.Home.screen_route}/tree_detail_screen/{tree}",
                         arguments = listOf(
                             navArgument("tree") {
                                 type = NavType.StringType
@@ -100,7 +100,7 @@ fun BottomNavigation(navController: NavController) {
                 selectedContentColor = Color.Black,
                 unselectedContentColor = Color.Black.copy(0.4f),
                 alwaysShowLabel = true,
-                selected = currentRoute == item.screen_route,
+                selected = currentRoute?.contains(item.screen_route) ?: false,
                 onClick = {
                     navController.navigate(item.screen_route) {
                         navController.graph.startDestinationRoute?.let { screen_route ->

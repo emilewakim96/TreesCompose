@@ -19,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.treescompose.R
 import com.example.treescompose.data.remote.responses.Tree
+import com.example.treescompose.util.BottomNavItem
 import com.google.gson.Gson
 
 @Composable
@@ -77,7 +78,7 @@ fun TreeCard(tree: Tree, navController: NavController) {
     fun navigateToTreeInfo(tree: Tree) {
         val treeJsonString = Gson().toJson(tree)
         navController.navigate(
-            "tree_detail_screen/${treeJsonString}"
+            "${BottomNavItem.Home.screen_route}/tree_detail_screen/${treeJsonString}"
         )
     }
     Column(modifier = Modifier.clickable {
