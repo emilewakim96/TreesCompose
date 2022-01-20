@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -20,7 +21,9 @@ import androidx.navigation.NavController
 import com.example.treescompose.R
 import com.example.treescompose.data.remote.responses.Tree
 import com.example.treescompose.util.BottomNavItem
+import com.example.treescompose.util.pxToDp
 import com.google.gson.Gson
+
 
 @Composable
 fun TreesListScreen(navController: NavController) {
@@ -50,7 +53,8 @@ fun TreeList(navController: NavController,
     val loadError = remember { viewModel.loadError }.value
     val isLoading = remember { viewModel.isLoading }.value
 
-    LazyColumn {
+    val navBarHeight = LocalContext.current.resources.getDimensionPixelSize(R.dimen.nav_bar_dimension).pxToDp()
+    LazyColumn(modifier = Modifier.padding(bottom = navBarHeight.dp)) {
         items(treesList) { tree ->
             TreeCard(tree, navController = navController)
             Spacer(modifier = Modifier.height(5.dp))
@@ -98,7 +102,7 @@ fun TreeCard(tree: Tree, navController: NavController) {
         Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = context.getString(R.string.tree_height, tree.fields.hauteurenm.toString()),
-            color = MaterialTheme.colors.secondaryVariant
+            color = MaterialTheme.colors.secondaryVariant,
         )
         Spacer(modifier = Modifier.height(5.dp))
         Text(
@@ -108,7 +112,9 @@ fun TreeCard(tree: Tree, navController: NavController) {
         Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = context.getString(R.string.tree_address, tree.fields.adresse),
-            color = MaterialTheme.colors.secondaryVariant
+            color = MaterialTheme.colors.secondaryVariant,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
         Spacer(modifier = Modifier.height(15.dp))
     }
