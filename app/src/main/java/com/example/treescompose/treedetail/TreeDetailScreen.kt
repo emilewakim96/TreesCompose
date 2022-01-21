@@ -27,7 +27,7 @@ fun TreeDetailScreen(tree: Tree, navController: NavController) {
         modifier = Modifier.fillMaxSize()
     ) {
         Column {
-            Row(modifier = Modifier.padding(top = 15.dp)) {
+            Row(modifier = Modifier.padding(start = 10.dp, top = 15.dp)) {
                 Text(text = context.getString(R.string.tree_detail),
                     fontWeight = FontWeight.Bold,
                     fontSize = 30.sp,
@@ -40,8 +40,9 @@ fun TreeDetailScreen(tree: Tree, navController: NavController) {
                         contentDescription = null,
                         tint = Color.Black,
                         modifier = Modifier
+                            .padding(top = (7.5).dp)
                             .align(Alignment.CenterVertically)
-                            .size(34.dp)
+                            .size(30.dp)
                             .clickable {
                                 navController.popBackStack()
                             }

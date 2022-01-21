@@ -21,6 +21,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.treescompose.coilimage.CoilImageScreen
 import com.example.treescompose.data.remote.responses.Tree
 import com.example.treescompose.treedetail.TreeDetailScreen
 import com.example.treescompose.treeslist.TreesListScreen
@@ -58,11 +59,7 @@ fun NavigationGraph(navController: NavHostController) {
                         TreesListScreen(navController = navController)
                     }
                     composable(BottomNavItem.Other.screen_route) {
-                        Text(text = "Other tab",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 50.sp,
-                            textAlign = TextAlign.Center,
-                            color = MaterialTheme.colors.onSurface)
+                        CoilImageScreen()
                     }
                     composable("${BottomNavItem.Home.screen_route}/tree_detail_screen/{tree}",
                         arguments = listOf(

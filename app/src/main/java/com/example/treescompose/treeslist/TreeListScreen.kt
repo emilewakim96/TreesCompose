@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import com.example.treescompose.R
 import com.example.treescompose.data.remote.responses.Tree
 import com.example.treescompose.util.BottomNavItem
+import com.example.treescompose.util.formatString
 import com.example.treescompose.util.pxToDp
 import com.google.gson.Gson
 
@@ -33,13 +34,12 @@ fun TreesListScreen(navController: NavController) {
         modifier = Modifier.fillMaxSize()
     ) {
         Column {
-            Spacer(modifier = Modifier.height(15.dp))
             Text(text = context.getString(R.string.trees_list),
                 fontWeight = FontWeight.Bold,
                 fontSize = 30.sp,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colors.onSurface)
-            Spacer(modifier = Modifier.height(10.dp))
+                color = MaterialTheme.colors.onSurface,
+                modifier = Modifier.padding(start = 10.dp, top = 15.dp, bottom = 10.dp)
+            )
             TreeList(navController = navController)
         }
     }
@@ -82,7 +82,7 @@ fun TreeCard(tree: Tree, navController: NavController) {
     fun navigateToTreeInfo(tree: Tree) {
         val treeJsonString = Gson().toJson(tree)
         navController.navigate(
-            "${BottomNavItem.Home.screen_route}/tree_detail_screen/${treeJsonString}"
+            "${BottomNavItem.Home.screen_route}/tree_detail_screen/${treeJsonString.formatString()}"
         )
     }
     Column(modifier = Modifier.clickable {
