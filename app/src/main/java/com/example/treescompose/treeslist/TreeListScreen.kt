@@ -1,5 +1,6 @@
 package com.example.treescompose.treeslist
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,17 +17,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.treescompose.R
 import com.example.treescompose.data.remote.responses.Tree
-import com.example.treescompose.util.BottomNavItem
-import com.example.treescompose.util.formatString
+import com.example.treescompose.destinations.TreeDetailScreenDestination
 import com.example.treescompose.util.pxToDp
-import com.google.gson.Gson
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-
+@Destination(start = true)
 @Composable
-fun TreesListScreen(navController: NavController) {
+fun TreesListScreen(navigator: DestinationsNavigator) {
     val context = LocalContext.current
     Surface(
         color = MaterialTheme.colors.background,
@@ -39,13 +39,13 @@ fun TreesListScreen(navController: NavController) {
                 color = MaterialTheme.colors.onSurface,
                 modifier = Modifier.padding(start = 10.dp, top = 15.dp, bottom = 10.dp)
             )
-            TreeList(navController = navController)
+            TreeList(navigator = navigator)
         }
     }
 }
 
 @Composable
-fun TreeList(navController: NavController,
+fun TreeList(navigator: DestinationsNavigator,
              viewModel: TreeListViewModel = hiltViewModel()
 ) {
     val treesList = remember { viewModel.treesList }.value
@@ -55,7 +55,7 @@ fun TreeList(navController: NavController,
     val navBarHeight = LocalContext.current.resources.getDimensionPixelSize(R.dimen.nav_bar_dimension).pxToDp()
     LazyColumn(modifier = Modifier.padding(bottom = navBarHeight.dp)) {
         items(treesList) { tree ->
-            TreeCard(tree, navController = navController)
+            TreeCard(navigator = navigator, tree = tree)
             Spacer(modifier = Modifier.height(5.dp))
         }
     }
@@ -76,16 +76,10 @@ fun TreeList(navController: NavController,
 }
 
 @Composable
-fun TreeCard(tree: Tree, navController: NavController) {
+fun TreeCard(navigator: DestinationsNavigator, tree: Tree) {
     val context = LocalContext.current
-    fun navigateToTreeInfo(tree: Tree) {
-        val treeJsonString = Gson().toJson(tree)
-        navController.navigate(
-            "${BottomNavItem.Home.screen_route}/tree_detail_screen/${treeJsonString.formatString()}"
-        )
-    }
     Column(modifier = Modifier.clickable {
-        navigateToTreeInfo(tree)
+        navigator.navigate(TreeDetailScreenDestination(tree))
     }) {
         Divider(color = Color.Black, thickness = 1.dp)
         Spacer(modifier = Modifier.height(15.dp))

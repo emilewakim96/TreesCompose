@@ -11,7 +11,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
+import com.ramcosta.composedestinations.annotation.Destination
 
+@Destination
 @Composable
 fun CoilImageScreen() {
     val painter =

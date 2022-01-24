@@ -15,12 +15,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.treescompose.R
 import com.example.treescompose.data.remote.responses.Tree
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
+@Destination
 @Composable
-fun TreeDetailScreen(tree: Tree, navController: NavController) {
+fun TreeDetailScreen(navigator: DestinationsNavigator, tree: Tree) {
     val context = LocalContext.current
     Surface(
         color = MaterialTheme.colors.background,
@@ -44,7 +46,8 @@ fun TreeDetailScreen(tree: Tree, navController: NavController) {
                             .align(Alignment.CenterVertically)
                             .size(30.dp)
                             .clickable {
-                                navController.popBackStack()
+                                navigator.popBackStack()
+//                                navController.popBackStack()
                             }
                     )
                 }
