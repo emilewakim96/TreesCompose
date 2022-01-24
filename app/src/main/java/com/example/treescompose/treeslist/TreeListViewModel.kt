@@ -29,9 +29,6 @@ class TreeListViewModel @Inject constructor(
             when(val result = repository.getTreesList()) {
                 is Resource.Success -> {
                     val records = result.data?.records
-                    records?.forEach { tree ->
-                        tree.fields.adresse = tree.fields.adresse.replace('/', '|', ignoreCase = true)
-                    }
                     records?.let { treesList.value = it }
                     loadError.value = ""
                     isLoading.value = false

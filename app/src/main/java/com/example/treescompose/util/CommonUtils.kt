@@ -10,3 +10,7 @@ fun Int.pxToDp(): Int {
 fun String.formatString(): String {
     return this.replace('/', '|', ignoreCase = true)
 }
+
+fun String.revertFormattedString(): String {
+    return this.replace('|', '/', ignoreCase = true)
+}

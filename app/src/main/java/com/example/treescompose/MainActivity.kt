@@ -27,6 +27,7 @@ import com.example.treescompose.treedetail.TreeDetailScreen
 import com.example.treescompose.treeslist.TreesListScreen
 import com.example.treescompose.ui.theme.TreesComposeTheme
 import com.example.treescompose.util.BottomNavItem
+import com.example.treescompose.util.revertFormattedString
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -69,7 +70,7 @@ fun NavigationGraph(navController: NavHostController) {
                         ))
                     {
                         val tree = remember {
-                            it.arguments?.getString("tree")
+                            it.arguments?.getString("tree")?.revertFormattedString()
                         }
                         val treeObject = Gson().fromJson(tree, Tree::class.java)
                         TreeDetailScreen(treeObject, navController = navController)
