@@ -47,7 +47,6 @@ fun TreeDetailScreen(navigator: DestinationsNavigator, tree: Tree) {
                             .size(30.dp)
                             .clickable {
                                 navigator.popBackStack()
-//                                navController.popBackStack()
                             }
                     )
                 }

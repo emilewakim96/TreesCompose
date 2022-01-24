@@ -6,31 +6,16 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.example.treescompose.coilimage.CoilImageScreen
-import com.example.treescompose.data.remote.responses.Tree
-import com.example.treescompose.destinations.TreesListScreenDestination
-import com.example.treescompose.treedetail.TreeDetailScreen
-import com.example.treescompose.treeslist.TreesListScreen
 import com.example.treescompose.ui.theme.TreesComposeTheme
 import com.example.treescompose.util.BottomNavItem
-import com.example.treescompose.util.revertFormattedString
-import com.google.gson.Gson
 import com.ramcosta.composedestinations.DestinationsNavHost
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
