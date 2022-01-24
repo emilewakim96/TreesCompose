@@ -59,7 +59,7 @@ fun BottomNavigation(navController: NavController) {
                 selectedContentColor = Color.Black,
                 unselectedContentColor = Color.Black.copy(0.4f),
                 alwaysShowLabel = true,
-                selected = currentDestination == item.destination,
+                selected = currentDestination?.route?.contains(item.destination.route) == true,
                 onClick = {
                     navController.navigate(item.destination.route) {
                         navController.graph.startDestinationRoute?.let { screen_route ->
