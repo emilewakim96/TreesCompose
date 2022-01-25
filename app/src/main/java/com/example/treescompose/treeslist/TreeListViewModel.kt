@@ -34,6 +34,12 @@ class TreeListViewModel @Inject constructor(
             when(val result = repository.getTreesList()) {
                 is Resource.Success -> {
                     val records = result.data?.records
+                    records?.forEachIndexed { index, tree ->
+                        if (index == 0) {
+                            tree.fields.image = "https://source.unsplash.com/user/c_v_r/1900x800"
+                            return@forEachIndexed
+                        }
+                    }
                     records?.let { treesList.addAll(records) }
                     loadError.value = ""
                     isLoading.value = false
@@ -55,9 +61,12 @@ class TreeListViewModel @Inject constructor(
 
     private fun updateTreeList() {
         val newList = treesList.toMutableList()
-        newList.forEach {
-            it.fields.hauteurenm = 20
+        if (newList.isNotEmpty()) {
+            newList.forEach {
+                it.fields.hauteurenm = 20
+            }
+            newList.add(newList.removeAt(0)) /* move first element to last element */
+            treesList.swapList(newList)
         }
-        treesList.swapList(newList)
     }
 }

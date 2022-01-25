@@ -13,8 +13,8 @@ object TreesTransitions : DestinationStyle.Animated {
         return when (initialState.navDestination) {
             TreesListScreenDestination -> {
                 slideInHorizontally(
-                    initialOffsetX = { 800 },
-                    animationSpec = tween(500)
+                    initialOffsetX = { 500 },
+                    animationSpec = tween(300)
                 )
             }
             else -> null
@@ -25,8 +25,8 @@ object TreesTransitions : DestinationStyle.Animated {
         return when (targetState.navDestination) {
             TreesListScreenDestination ->
                 slideOutHorizontally(
-                    targetOffsetX = { -1000 },
-                    animationSpec = tween(700)
+                    targetOffsetX = { -700 },
+                    animationSpec = tween(500)
                 )
             else -> null
         }
@@ -36,8 +36,8 @@ object TreesTransitions : DestinationStyle.Animated {
         return when (initialState.navDestination) {
             TreesListScreenDestination ->
                 slideInHorizontally(
-                    initialOffsetX = { -1000 },
-                    animationSpec = tween(700)
+                    initialOffsetX = { -700 },
+                    animationSpec = tween(500)
                 )
             else -> null
         }
@@ -47,8 +47,8 @@ object TreesTransitions : DestinationStyle.Animated {
         return when (targetState.navDestination) {
             TreesListScreenDestination ->
                 slideOutHorizontally(
-                    targetOffsetX = { 1000 },
-                    animationSpec = tween(700)
+                    targetOffsetX = { 700 },
+                    animationSpec = tween(500)
                 )
             else -> null
         }

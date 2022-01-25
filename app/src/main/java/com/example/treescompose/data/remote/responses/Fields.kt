@@ -20,5 +20,6 @@ data class Fields(
     val remarquable: String?,
     val stadedeveloppement: String?,
     val typeemplacement: String?,
-    val varieteoucultivar: String?
+    val varieteoucultivar: String?,
+    var image: String? = null
 ): Parcelable

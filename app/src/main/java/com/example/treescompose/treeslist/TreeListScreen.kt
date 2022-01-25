@@ -1,22 +1,24 @@
 package com.example.treescompose.treeslist
 
-import android.os.Looper
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberImagePainter
 import com.example.treescompose.R
 import com.example.treescompose.data.remote.responses.Tree
 import com.example.treescompose.destinations.TreeDetailScreenDestination
@@ -57,8 +59,8 @@ fun TreeList(navigator: DestinationsNavigator,
 
     val navBarHeight = LocalContext.current.resources.getDimensionPixelSize(R.dimen.nav_bar_dimension).pxToDp()
     LazyColumn(modifier = Modifier.padding(bottom = navBarHeight.dp)) {
-        items(viewModel.treesList) { tree ->
-            TreeCard(navigator = navigator, tree = tree)
+        itemsIndexed(viewModel.treesList) { index, tree ->
+            TreeCard(navigator = navigator, tree = tree, index = index)
             Spacer(modifier = Modifier.height(5.dp))
         }
     }
@@ -79,7 +81,7 @@ fun TreeList(navigator: DestinationsNavigator,
 }
 
 @Composable
-fun TreeCard(navigator: DestinationsNavigator, tree: Tree) {
+fun TreeCard(navigator: DestinationsNavigator, tree: Tree, index: Int) {
     val context = LocalContext.current
     Column(modifier = Modifier.clickable {
         navigator.navigate(TreeDetailScreenDestination(tree))
@@ -111,6 +113,15 @@ fun TreeCard(navigator: DestinationsNavigator, tree: Tree) {
             color = MaterialTheme.colors.secondaryVariant,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        val painter =
+            rememberImagePainter(data = tree.fields.image ?: "https://images.unsplash.com/photo-1628373383885-4be0bc0172fa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1301&q=80")
+        Image(
+            painter = painter,
+            contentDescription = "Forest Image",
+            modifier = Modifier.size(100.dp).align(Alignment.CenterHorizontally),
+            contentScale = ContentScale.Crop
         )
         Spacer(modifier = Modifier.height(15.dp))
     }
