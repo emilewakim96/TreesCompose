@@ -1,5 +1,6 @@
 package com.example.treescompose.treeslist
 
+import android.os.Looper
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,10 +20,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.treescompose.R
 import com.example.treescompose.data.remote.responses.Tree
 import com.example.treescompose.destinations.TreeDetailScreenDestination
-import com.example.treescompose.util.TreesTransitions
 import com.example.treescompose.util.pxToDp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import java.util.logging.Handler
 
 @Destination(
     start = true,
@@ -50,13 +51,13 @@ fun TreesListScreen(navigator: DestinationsNavigator) {
 fun TreeList(navigator: DestinationsNavigator,
              viewModel: TreeListViewModel = hiltViewModel()
 ) {
-    val treesList = remember { viewModel.treesList }.value
+//    val treesList = remember { viewModel.treesList }
     val loadError = remember { viewModel.loadError }.value
     val isLoading = remember { viewModel.isLoading }.value
 
     val navBarHeight = LocalContext.current.resources.getDimensionPixelSize(R.dimen.nav_bar_dimension).pxToDp()
     LazyColumn(modifier = Modifier.padding(bottom = navBarHeight.dp)) {
-        items(treesList) { tree ->
+        items(viewModel.treesList) { tree ->
             TreeCard(navigator = navigator, tree = tree)
             Spacer(modifier = Modifier.height(5.dp))
         }

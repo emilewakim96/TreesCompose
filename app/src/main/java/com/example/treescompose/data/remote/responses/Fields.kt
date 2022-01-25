@@ -13,7 +13,7 @@ data class Fields(
     val espece: String?,
     val genre: String?,
     val geo_point_2d: List<Double>?,
-    val hauteurenm: Int?,
+    var hauteurenm: Int?,
     val idbase: Int?,
     val idemplacement: String?,
     val libellefrancais: String?,

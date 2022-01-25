@@ -1,16 +1,13 @@
 package com.example.treescompose.util
 
 import android.content.res.Resources
+import androidx.compose.runtime.snapshots.SnapshotStateList
 
 fun Int.pxToDp(): Int {
     return (this / Resources.getSystem().displayMetrics.density).toInt()
 }
 
-/* format string (to safely pass json object string in compose route) */
-fun String.formatString(): String {
-    return this.replace('/', '|', ignoreCase = true)
-}
-
-fun String.revertFormattedString(): String {
-    return this.replace('|', '/', ignoreCase = true)
+fun <T> SnapshotStateList<T>.swapList(newList: List<T>){
+    clear()
+    addAll(newList)
 }
