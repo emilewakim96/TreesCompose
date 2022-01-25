@@ -23,7 +23,7 @@ import com.example.treescompose.util.pxToDp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Destination(start = true)
+@Destination(start = true, route = "trees_screen/list")
 @Composable
 fun TreesListScreen(navigator: DestinationsNavigator) {
     val context = LocalContext.current
