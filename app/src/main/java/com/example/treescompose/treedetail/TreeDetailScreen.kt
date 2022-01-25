@@ -17,10 +17,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.treescompose.R
 import com.example.treescompose.data.remote.responses.Tree
+import com.example.treescompose.util.TreesTransitions
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Destination(route = "trees_screen/details")
+@Destination(route = "trees_screen/details", style = TreesTransitions::class)
 @Composable
 fun TreeDetailScreen(navigator: DestinationsNavigator, tree: Tree) {
     val context = LocalContext.current

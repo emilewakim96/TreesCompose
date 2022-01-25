@@ -19,11 +19,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.treescompose.R
 import com.example.treescompose.data.remote.responses.Tree
 import com.example.treescompose.destinations.TreeDetailScreenDestination
+import com.example.treescompose.util.TreesTransitions
 import com.example.treescompose.util.pxToDp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Destination(start = true, route = "trees_screen/list")
+@Destination(
+    start = true,
+    route = "trees_screen")
 @Composable
 fun TreesListScreen(navigator: DestinationsNavigator) {
     val context = LocalContext.current

@@ -3,9 +3,14 @@ package com.example.treescompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -15,7 +20,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.treescompose.ui.theme.TreesComposeTheme
 import com.example.treescompose.util.BottomNavItem
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.ramcosta.composedestinations.DestinationsNavHost
+import com.ramcosta.composedestinations.animations.defaults.NestedNavGraphDefaultAnimations
+import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
+import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,13 +40,25 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialNavigationApi::class)
 @Composable
 fun MainScreenView() {
-    val navController = rememberNavController()
+    val navController = rememberAnimatedNavController()
+    val navHostEngine = rememberAnimatedNavHostEngine(
+        navHostContentAlignment = Alignment.TopCenter,
+        rootDefaultAnimations = RootNavGraphDefaultAnimations.ACCOMPANIST_FADING, //default `rootDefaultAnimations` means no animations
+//        defaultAnimationsForNestedNavGraph = mapOf(
+//            NavGraphs.settings to NestedNavGraphDefaultAnimations(
+//                enterTransition = { fadeIn(animationSpec = tween(2000)) },
+//                exitTransition = { fadeOut(animationSpec = tween(2000)) }
+//            ),
+//            NavGraphs.otherNestedGraph to NestedNavGraphDefaultAnimations.ACCOMPANIST_FADING
+//        ) // all other nav graphs not specified in this map, will get their animations from the `rootDefaultAnimations` above.
+    )
     Scaffold(
         bottomBar = { BottomNavigation(navController = navController) }
     ) {
-        DestinationsNavHost(navGraph = NavGraphs.root, navController = navController)
+        DestinationsNavHost(navGraph = NavGraphs.root, navController = navController, engine = navHostEngine)
     }
 }
 
