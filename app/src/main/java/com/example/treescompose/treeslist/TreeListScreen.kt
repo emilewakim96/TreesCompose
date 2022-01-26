@@ -5,9 +5,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,7 +26,7 @@ import com.example.treescompose.destinations.TreeDetailScreenDestination
 import com.example.treescompose.util.pxToDp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import java.util.logging.Handler
+import kotlinx.coroutines.launch
 
 @Destination(
     start = true,
@@ -53,15 +54,23 @@ fun TreesListScreen(navigator: DestinationsNavigator) {
 fun TreeList(navigator: DestinationsNavigator,
              viewModel: TreeListViewModel = hiltViewModel()
 ) {
-//    val treesList = remember { viewModel.treesList }
-    val loadError = remember { viewModel.loadError }.value
-    val isLoading = remember { viewModel.isLoading }.value
+
+    val loadError = viewModel.loadError.value  /* no need to use remember for viewModel variables */
+    val isLoading = viewModel.isLoading.value
+    val scrollToIndex = viewModel.scrollToIndex.value
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
 
     val navBarHeight = LocalContext.current.resources.getDimensionPixelSize(R.dimen.nav_bar_dimension).pxToDp()
-    LazyColumn(modifier = Modifier.padding(bottom = navBarHeight.dp)) {
+    LazyColumn(state = listState, modifier = Modifier.padding(bottom = navBarHeight.dp)) {
         itemsIndexed(viewModel.treesList) { index, tree ->
             TreeCard(navigator = navigator, tree = tree, index = index)
             Spacer(modifier = Modifier.height(5.dp))
+        }
+        scrollToIndex?.let { scrollIndex ->
+            coroutineScope.launch {
+                listState.animateScrollToItem(index = scrollIndex)
+            }
         }
     }
 

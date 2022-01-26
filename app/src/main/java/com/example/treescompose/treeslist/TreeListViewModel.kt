@@ -22,10 +22,12 @@ class TreeListViewModel @Inject constructor(
     var treesList = mutableStateListOf<Tree>()
     var loadError = mutableStateOf("")
     var isLoading = mutableStateOf(false)
+    var scrollToIndex = mutableStateOf<Int?>(null)
 
     init {
         loadTreeList()
         startTimerToUpdateList()
+        scrollToPos(index = 5)
     }
 
     fun loadTreeList() {
@@ -57,6 +59,13 @@ class TreeListViewModel @Inject constructor(
             /* Create an Intent that will start the Menu-Activity. */
             updateTreeList()
         }, 5000)
+    }
+
+    private fun scrollToPos(index : Int?) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            /* Create an Intent that will start the Menu-Activity. */
+            scrollToIndex.value = index
+        }, 8000)
     }
 
     private fun updateTreeList() {

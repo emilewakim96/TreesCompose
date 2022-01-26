@@ -21,16 +21,16 @@ object TreesTransitions : DestinationStyle.Animated {
         }
     }
 
-    override fun AnimatedContentScope<NavBackStackEntry>.exitTransition(): ExitTransition? {
-        return when (targetState.navDestination) {
-            TreesListScreenDestination ->
-                slideOutHorizontally(
-                    targetOffsetX = { -700 },
-                    animationSpec = tween(500)
-                )
-            else -> null
-        }
-    }
+//    override fun AnimatedContentScope<NavBackStackEntry>.exitTransition(): ExitTransition? {
+//        return when (targetState.navDestination) {
+//            TreesListScreenDestination ->
+//                slideOutHorizontally(
+//                    targetOffsetX = { -700 },
+//                    animationSpec = tween(500)
+//                )
+//            else -> null
+//        }
+//    }
 
     override fun AnimatedContentScope<NavBackStackEntry>.popEnterTransition(): EnterTransition? {
         return when (initialState.navDestination) {
@@ -43,15 +43,15 @@ object TreesTransitions : DestinationStyle.Animated {
         }
     }
 
-    override fun AnimatedContentScope<NavBackStackEntry>.popExitTransition(): ExitTransition? {
-        return when (targetState.navDestination) {
-            TreesListScreenDestination ->
-                slideOutHorizontally(
-                    targetOffsetX = { 700 },
-                    animationSpec = tween(500)
-                )
-            else -> null
-        }
-    }
+//    override fun AnimatedContentScope<NavBackStackEntry>.popExitTransition(): ExitTransition? {
+//        return when (targetState.navDestination) {
+//            TreesListScreenDestination ->
+//                slideOutHorizontally(
+//                    targetOffsetX = { 700 },
+//                    animationSpec = tween(500)
+//                )
+//            else -> null
+//        }
+//    }
 
 }
