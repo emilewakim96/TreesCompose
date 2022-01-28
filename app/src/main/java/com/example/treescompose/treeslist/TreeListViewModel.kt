@@ -1,7 +1,5 @@
 package com.example.treescompose.treeslist
 
-import android.os.Handler
-import android.os.Looper
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -11,6 +9,7 @@ import com.example.treescompose.data.repository.TreesRepository
 import com.example.treescompose.util.Resource
 import com.example.treescompose.util.swapList
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -55,17 +54,17 @@ class TreeListViewModel @Inject constructor(
     }
 
     private fun startTimerToUpdateList() {
-        Handler(Looper.getMainLooper()).postDelayed({
-            /* Create an Intent that will start the Menu-Activity. */
+        viewModelScope.launch {
+            delay(5000)
             updateTreeList()
-        }, 5000)
+        }
     }
 
     private fun scrollToPos(index : Int?) {
-        Handler(Looper.getMainLooper()).postDelayed({
-            /* Create an Intent that will start the Menu-Activity. */
+        viewModelScope.launch {
+            delay(8000)
             scrollToIndex.value = index
-        }, 8000)
+        }
     }
 
     private fun updateTreeList() {
