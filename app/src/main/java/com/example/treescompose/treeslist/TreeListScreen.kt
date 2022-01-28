@@ -4,7 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -63,8 +63,8 @@ fun TreeList(navigator: DestinationsNavigator,
 
     val navBarHeight = LocalContext.current.resources.getDimensionPixelSize(R.dimen.nav_bar_dimension).pxToDp()
     LazyColumn(state = listState, modifier = Modifier.padding(bottom = navBarHeight.dp)) {
-        itemsIndexed(viewModel.treesList) { index, tree ->
-            TreeCard(navigator = navigator, tree = tree, index = index)
+        items(viewModel.treesList) { tree ->
+            TreeCard(navigator = navigator, tree = tree)
             Spacer(modifier = Modifier.height(5.dp))
         }
         scrollToIndex?.let { scrollIndex ->
@@ -90,7 +90,7 @@ fun TreeList(navigator: DestinationsNavigator,
 }
 
 @Composable
-fun TreeCard(navigator: DestinationsNavigator, tree: Tree, index: Int) {
+fun TreeCard(navigator: DestinationsNavigator, tree: Tree) {
     val context = LocalContext.current
     Column(modifier = Modifier.clickable {
         navigator.navigate(TreeDetailScreenDestination(tree))

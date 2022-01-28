@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class Tree(
     val datasetid: String,
     val fields: Fields,
-    val geometry: Geometry,
-    val record_timestamp: String,
+    val geometry: Geometry? = null,
+    val record_timestamp: String? = null,
     val recordid: String
 ): Parcelable
