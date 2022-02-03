@@ -3,6 +3,8 @@ package com.example.treescompose.di
 import com.example.treescompose.data.remote.TreesApi
 import com.example.treescompose.data.repository.TreesRepository
 import com.example.treescompose.util.Constants.BASE_URL
+import com.example.treescompose.util.DefaultDispatchers
+import com.example.treescompose.util.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,4 +45,8 @@ object AppModule {
             .build()
             .create(TreesApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideDispatcher(): DispatcherProvider = DefaultDispatchers()
 }

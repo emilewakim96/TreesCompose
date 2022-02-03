@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.treescompose.data.remote.responses.Tree
 import com.example.treescompose.data.repository.TreesRepository
+import com.example.treescompose.util.DefaultDispatchers
+import com.example.treescompose.util.DispatcherProvider
 import com.example.treescompose.util.Resource
 import com.example.treescompose.util.swapList
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TreeListViewModel @Inject constructor(
-    private val repository: TreesRepository
+    private val repository: TreesRepository,
+    private val dispatcher: DispatcherProvider
 ) : ViewModel() {
 
     var treesList = mutableStateListOf<Tree>()
@@ -30,7 +33,7 @@ class TreeListViewModel @Inject constructor(
     }
 
     fun loadTreeList() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher.main) {
             isLoading.value = true
             when(val result = repository.getTreesList()) {
                 is Resource.Success -> {
@@ -54,14 +57,14 @@ class TreeListViewModel @Inject constructor(
     }
 
     private fun startTimerToUpdateList() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher.main) {
             delay(5000)
             updateTreeList()
         }
     }
 
     private fun scrollToPos(index : Int?) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher.main) {
             delay(8000)
             scrollToIndex.value = index
         }
