@@ -3,14 +3,12 @@ package com.example.treescompose.utils
 import com.example.treescompose.util.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 
 
 @ExperimentalCoroutinesApi
 class TestDispatchers: DispatcherProvider {
-    val testCoroutineDispatcher = TestCoroutineDispatcher()
-//val testCoroutineDispatcher = StandardTestDispatcher()
+    val testCoroutineDispatcher = UnconfinedTestDispatcher()
     override val main: CoroutineDispatcher
         get() = testCoroutineDispatcher
     override val io: CoroutineDispatcher
