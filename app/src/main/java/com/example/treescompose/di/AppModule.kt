@@ -1,8 +1,11 @@
 package com.example.treescompose.di
 
+import com.apollographql.apollo.ApolloClient
 import com.example.treescompose.data.remote.TreesApi
+import com.example.treescompose.data.repository.GithubRepository
 import com.example.treescompose.data.repository.TreesRepository
 import com.example.treescompose.util.Constants.BASE_URL
+import com.example.treescompose.util.Constants.Github_REPO_URL
 import com.example.treescompose.util.DefaultDispatchers
 import com.example.treescompose.util.DispatcherProvider
 import dagger.Module
@@ -37,6 +40,10 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideGithubRepository(apolloClient: ApolloClient) = GithubRepository(apolloClient)
+
+    @Singleton
+    @Provides
     fun provideTreesApi(okHttpClient: OkHttpClient): TreesApi {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -45,6 +52,12 @@ object AppModule {
             .build()
             .create(TreesApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun providesApolloClient(): ApolloClient = ApolloClient.builder()
+        .serverUrl(Github_REPO_URL)
+        .build()
 
     @Singleton
     @Provides
