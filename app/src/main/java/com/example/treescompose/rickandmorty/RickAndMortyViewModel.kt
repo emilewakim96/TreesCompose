@@ -1,11 +1,11 @@
-package com.example.treescompose.githubrepositories
+package com.example.treescompose.rickandmorty
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.treescompose.GetCharactersQuery
-import com.example.treescompose.data.repository.GithubRepository
+import com.example.treescompose.data.repository.RickAndMortyRepository
 import com.example.treescompose.util.DispatcherProvider
 import com.example.treescompose.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GithubRepositoryViewModel @Inject constructor(
-    private val repository: GithubRepository,
+class RickAndMortyViewModel @Inject constructor(
+    private val repository: RickAndMortyRepository,
     private val dispatcher: DispatcherProvider
 ): ViewModel() {
 
@@ -29,7 +29,7 @@ class GithubRepositoryViewModel @Inject constructor(
     fun getCharacters() {
         isLoading.value = true
         viewModelScope.launch(dispatcher.main) {
-            when(val result = repository.retrieveData(page = 0)) {
+            when(val result = repository.retrieveCharacters(page = 0)) {
                 is Resource.Success -> {
                     val characterResults = result.data?.characters?.results
                     characterResults?.let { charactersList.addAll(it) }

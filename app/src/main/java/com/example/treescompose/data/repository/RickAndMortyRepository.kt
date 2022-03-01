@@ -9,11 +9,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GithubRepository @Inject constructor(
+class RickAndMortyRepository @Inject constructor(
     private val apolloClient: ApolloClient
 ) {
 
-    suspend fun retrieveData(page: Int): Resource<GetCharactersQuery.Data?> {
+    suspend fun retrieveCharacters(page: Int): Resource<GetCharactersQuery.Data?> {
         val result = try {
             apolloClient.query(GetCharactersQuery(page = page.toInput())).await()
         } catch (ex: Exception) {

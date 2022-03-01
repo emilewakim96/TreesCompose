@@ -1,4 +1,4 @@
-package com.example.treescompose.githubrepositories
+package com.example.treescompose.rickandmorty
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,7 +17,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 @Destination
 @Composable
 fun GithubRepositoriesScreen(
-    viewModel: GithubRepositoryViewModel = hiltViewModel()
+    viewModel: RickAndMortyViewModel = hiltViewModel()
 ) {
     val loadError = viewModel.loadError.value  /* no need to use remember for viewModel variables */
     val isLoading = viewModel.isLoading.value

@@ -2,7 +2,7 @@ package com.example.treescompose.di
 
 import com.apollographql.apollo.ApolloClient
 import com.example.treescompose.data.remote.TreesApi
-import com.example.treescompose.data.repository.GithubRepository
+import com.example.treescompose.data.repository.RickAndMortyRepository
 import com.example.treescompose.data.repository.TreesRepository
 import com.example.treescompose.util.Constants.BASE_URL
 import com.example.treescompose.util.Constants.Github_REPO_URL
@@ -40,7 +40,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideGithubRepository(apolloClient: ApolloClient) = GithubRepository(apolloClient)
+    fun provideRickAndMortyRepository(apolloClient: ApolloClient) = RickAndMortyRepository(apolloClient)
 
     @Singleton
     @Provides
